@@ -1,35 +1,18 @@
-import firebaseConfig from './config';
-
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
-const ordersRef = database.ref('orders');
-const loginForm = document.querySelector('.login-form');
-const emailInput = document.getElementById('email');
-const passwordInput = document.getElementById('password');
-
-function authenticateUser() {
-        
-    loginForm.addEventListener('submit', (event) => {
-        event.preventDefault(); 
-        
-        const email = emailInput.value; 
-        const password = passwordInput.value; 
-        firebase.auth().signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            console.log('Пользователь успешно вошел в систему:', user);
-            window.location.href = 'main.html';
-            
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.error('Ошибка аутентификации:', errorMessage, errorCode );
-        });
-                
-            });
-}
 document.addEventListener("DOMContentLoaded", function () {
+    const firebaseConfig = {
+        apiKey: "AIzaSyD3LsfbMemnsuf-NpUGqVnj6WD2ffhiegk",
+        authDomain: "bilimallserver.firebaseapp.com",
+        databaseURL: "https://bilimallserver-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "bilimallserver",
+        storageBucket: "bilimallserver.appspot.com",
+        messagingSenderId: "1015554091336",
+        appId: "1:1015554091336:web:f4285f9170687b43722b7d",
+        measurementId: "G-GLHE7FTRB7"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+    const ordersRef = database.ref('orders');
     const tableBody = document.getElementById('table-body');
     let selectedCount = 0;
     let nameSortAsc = true;
@@ -51,16 +34,35 @@ document.addEventListener("DOMContentLoaded", function () {
     if (showStatics) {
         showStatics.addEventListener('click', validateDateRange);
     }
-    if (tableBody) {
-        fetchDataAndPopulateTable();
-        // updateStatisticsCards()
-    }
-    else if (staticCards) {
-        calculateStatistics();
-    }
 
 
-    
+
+
+
+    function authenticateUser() {
+        const email = 'info@iscomp.kz';
+        const password = 'Inkar!01';
+        firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            console.log('Пользователь успешно вошел в систему:', user);
+            if(tableBody){
+                fetchDataAndPopulateTable()
+                // updateStatisticsCards()
+            }
+            if(staticCards){
+                calculateStatistics()
+            }
+           
+            
+            
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error('Ошибка аутентификации:', errorMessage, errorCode );
+        });
+    }
 
     function fetchDataAndPopulateTable() {
         ordersRef.once('value')
@@ -126,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
             
             })
             .catch((error) => {
-                console.error("error for table:", error);
+                console.error("Ошибка при получении данных для таблицы:", error);
             });
     }
 
@@ -361,7 +363,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         switch (index) {
                             case 0:
                                 staticNum.textContent = clientsCount;
-                                numTitle.textContent = 'платежей';
+                                numTitle.textContent = 'клиентов';
                                 break;
                             case 1:
                                 staticNum.textContent = ordersCount;
@@ -382,7 +384,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             })
             .catch((error) => {
-                console.error("error for statics:", error);
+                console.error("Ошибка при получении данных для статистики:", error);
             });
     }
 
@@ -412,7 +414,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 topsChartData
             };
         } catch (error) {
-            console.error("errors for static num 2:", error);
+            console.error("Ошибка при получении данных для статистики:", error);
             return null;
         }
     }
@@ -420,17 +422,13 @@ document.addEventListener("DOMContentLoaded", function () {
     
 
     window.onload = async function () {
-        if(staticCards){
-            const defaultChartsData = await generateDefaultCharts();
-            if (defaultChartsData) {
-                const { salesChartData, statusChartData, topsChartData } = defaultChartsData;
-                drawBarChart(salesChartData);
-                drawPieChart(statusChartData);
-                drawDoughnutChart(topsChartData);
-            }
-
+        const defaultChartsData = await generateDefaultCharts();
+        if (defaultChartsData) {
+            const { salesChartData, statusChartData, topsChartData } = defaultChartsData;
+            drawBarChart(salesChartData);
+            drawPieChart(statusChartData);
+            drawDoughnutChart(topsChartData);
         }
-        
     };
     async function validateDateRange() {
         const startDate = new Date(document.getElementById('start').value);
@@ -516,6 +514,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     
 
+
+
+
+
+
+
+    
     function calculateIntervalDataForSalesChart(ordersData, startDate, endDate) {
         const intervals = {
             day: {},
@@ -897,9 +902,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-
-    
-    
     
     function isWithinRange(timestamp, startDate, endDate) {
         const ts = parseInt(timestamp, 10); 
@@ -909,6 +911,12 @@ document.addEventListener("DOMContentLoaded", function () {
     
         return tsDate >= startDate && tsDate <= endDate;
     }
+    
+    
+    
+
+
+
 
 
     authenticateUser();
