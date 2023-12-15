@@ -34,34 +34,39 @@ document.addEventListener("DOMContentLoaded", function () {
     if (showStatics) {
         showStatics.addEventListener('click', validateDateRange);
     }
+    const loginForm = document.querySelector('.login-form');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
 
-
-
-
+    if (tableBody) {
+        fetchDataAndPopulateTable();
+        // updateStatisticsCards()
+    }
+    else if (staticCards) {
+        calculateStatistics();
+    }
 
     function authenticateUser() {
-        const email = 'info@iscomp.kz';
-        const password = 'Inkar!01';
-        firebase.auth().signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            console.log('Пользователь успешно вошел в систему:', user);
-            if(tableBody){
-                fetchDataAndPopulateTable()
-                // updateStatisticsCards()
-            }
-            if(staticCards){
-                calculateStatistics()
-            }
-           
             
+        loginForm.addEventListener('submit', (event) => {
+            event.preventDefault(); 
             
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.error('Ошибка аутентификации:', errorMessage, errorCode );
-        });
+            const email = emailInput.value; 
+            const password = passwordInput.value; 
+            firebase.auth().signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log('Пользователь успешно вошел в систему:', user);
+                window.location.href = 'main.html';
+                
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error('Ошибка аутентификации:', errorMessage, errorCode );
+            });
+                    
+                });
     }
 
     function fetchDataAndPopulateTable() {
