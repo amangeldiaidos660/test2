@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="src/img/favicon.ico" type="image/x-icon">
+    <title>ipanel/login</title>
+
+</head>
+<body>
+    <div class="container">
+        <section class="section">
+            <form class="login-form">
+                <h1>Login</h1>
+                <div class="input">
+                    <img src="src/img/mail.svg" alt="email-icon" class="icon">
+                    <input type="email" id="email" required autocomplete="none">
+                    <label for="email">email</label>
+                </div>
+                <div class="input">
+                    <img src="src/img/pass.svg" alt="password-icon" class="icon">
+                    <input type="password" id="password" required autocomplete="none">
+                    <label for="password">password</label>
+                </div>
+                <button class="button">log in</button>
+            </form>
+        </section>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script type="module" src="src/main.js"></script>
+
+
+    
+</body>
+</html>

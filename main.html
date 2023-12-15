@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="src/img/favicon.ico" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>ipanel/main</title>
+</head>
+<body>
+    <aside class="aside">
+        <h2 class="username">username</h2>
+        <ul class="menu-list">
+            <li class="menu-list-item active">
+                <a href="main.html">
+                    <img src="src/img/main.svg" alt="main-icon" class="list-icon">
+                    Главная
+                </a>
+            </li>
+            <li class="menu-list-item">
+                <a href="report.html">
+                    <img src="src/img/report.svg" alt="report-icon" class="list-icon">
+                    Отчет
+                </a>
+            </li>
+            <li class="menu-list-item">
+                <a href="#">
+                    <img src="src/img/admin-icon.svg" alt="admin-icon" class="list-icon">
+                    Кабинет админа
+                </a>
+            </li>
+            <li class="menu-list-item">
+                <a href="index.html" id="logout">
+                    <img src="src/img/logout.svg" alt="logout-icon" class="list-icon">
+                    Выход
+                </a>
+            </li>
+        </ul>
+        <div class="main-icon">
+            <img src="src/img/main-icon.svg" alt="ipanel-icon" >
+        </div>
+    </aside>
+    <main class="main">
+        <div class="container-2">
+            <h3>За все время</h3>
+            <div class="static-cards">
+                <div class="card">
+                    <div>
+                        <p class="static-num"></p>
+                        <p class="num-title">клиентов</p>
+                    </div>
+                    <img src="src/img/clients.svg" alt="clients">
+                </div> 
+                <div class="card">
+                    <div>
+                        <p class="static-num"></p>
+                        <p class="num-title">заказов</p>
+                    </div>
+                    <img src="src/img/orders.svg" alt="orders">
+                </div>
+                <div class="card">
+                    <div>
+                        <p class="static-num"></p>
+                        <p class="num-title">прибыль</p>
+                    </div>
+                    <img src="src/img/income.svg" alt="income">
+                </div>
+                <div class="card">
+                    <div>
+                        <p class="static-num"></p>
+                        <p class="num-title">возврата</p>
+                    </div>
+                    <img src="src/img/returns.svg" alt="returns">
+                </div>
+            </div>
+            <div class="diagrams-block-1">
+                <form class="analysis">
+                    <label for="start">С:</label>
+                    <input type="datetime-local" id="start" name="trip-start" class="date" />
+                    
+                    <label for="end">По:</label>
+                    <input type="datetime-local" id="end" name="trip-end" class="date" />
+                    
+                    <button class="button2"  id="showStatics" type="button">Показать</button>
+                </form>
+                <div class="sales">
+                    <h4>Cумма продаж за выбранный период</h4>
+                    <p class="sales-sum"> </p>
+                    <div class="diagram">
+                        <canvas class="diagram" id="salesBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="diagrams-block-2">
+                <div class="order-status">
+                    <h4>Cоотношения статусов заказов</h4>
+                    <div class="diagram" id="orderStatusPieChart">
+                        <canvas class="diagram" id="statusChart"></canvas>
+                    </div>
+                </div>
+                <div class="top-products">
+                    <h4>Топ товары</h4>
+                    <div class="diagram" id="topProductsPieChart">
+                        <canvas class="diagram" id="salesDoughnutChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="src/main.js"></script>
+</body>
+</html>
